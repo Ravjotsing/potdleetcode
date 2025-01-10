@@ -1,0 +1,35 @@
+//Approach - (Simple storing character frequency in map and checking)
+//T.C : O(n*l1 + m*l2) , n = # of words in words1, l1 = average length of word in words1, similarly m and l2 for words2
+//S.C : O(26) ~= O(1)
+class Solution {
+public:
+    bool issubset(vector<int>&freq2,vector<int>&temp){
+        for(int i=0;i<26;i++){
+            if(temp[i]<freq2[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+    vector<string> wordSubsets(vector<string>& words1, vector<string>& words2) {
+        vector<string>result;
+        vector<int> freq2(26);
+        for(string &word:words2){
+            vector<int>temp(26,0);
+            for(char &ch:word){
+                temp[ch-'a']++;
+                freq2[ch-'a'] = max(freq2[ch-'a'],temp[ch-'a']);
+            }
+        }
+        for(string &word:words1){
+            vector<int>temp(26,0);
+             for(char &ch : word) {
+                temp[ch-'a']++;
+            }
+            if (issubset(freq2,temp) == true){
+                 result.push_back(word);
+            }
+        }
+        return result;
+    }
+};
