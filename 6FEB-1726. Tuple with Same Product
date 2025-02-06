@@ -1,0 +1,23 @@
+Time O(N^2) Space O(N^2)
+
+class Solution {
+public:
+    int tupleSameProduct(vector<int>& nums) {
+        
+        unordered_map<int,int>multiplestore;
+        for(int i=0;i<nums.size();i++){
+             for (int j = i + 1; j < nums.size(); ++j) {
+            int product = nums[i] * nums[j];
+             multiplestore[product]++;
+        }
+        }
+        int count =0;
+        for ( auto& pair:multiplestore){
+            if(pair.second >=2){
+                count += (pair.second * (pair.second - 1)) / 2;
+            }
+        }
+        int ans = count*8;
+        return ans;
+    }
+};
